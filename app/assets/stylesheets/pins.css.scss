@@ -6,6 +6,9 @@ h1 {
   font-size: 60px;
   color: #dd5566;
 }
+body{
+  background: url(asset-path('laptop-background.jpg')) no-repeat;
+}
 .pin-container{
   padding: 10px;
 }
@@ -21,4 +24,8 @@ h1 {
 }
 hr{
   clear:both;
+}
+
+.container-fluid{
+  padding-top: 30px;
 }

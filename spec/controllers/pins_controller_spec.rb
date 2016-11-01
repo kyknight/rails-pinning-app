@@ -38,7 +38,7 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        resource_type: "rails"}    
+        category_id: "rails"}    
     end
     
     after(:each) do

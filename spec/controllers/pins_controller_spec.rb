@@ -83,4 +83,66 @@ RSpec.describe PinsController do
     
   end
 
+  
+  describe "GET edit" do
+    before(:each) do
+      # simple setup.
+      @pin = Pin.find(5)
+    end
+
+    it 'responds with success' do
+      # results without errors.
+      get :edit, id: @pin.id
+      expect(response.success?).to be(true)
+    end
+
+    it 'renders the edit template' do
+      # Should redirect to the edit page/
+      get :edit, id: @pin.id
+      expect(response).to render_template(:edit)
+    end
+    
+    it 'assigns an instance variable called @pin to the Pin with the appropriate id' do
+      # after the edit, the updated pin should be assinged to the pin
+      # we started with, the one with the same :id
+      get :edit, id: @pin.id
+      expect(assigns(:pin)).to eq(@pin)
+    end
+  end
+
+  describe "POST update" do
+  before(:each) do
+    @pin = Pin.find(4)
+    @pin_hash = {
+      title: "Ruby Quiz",
+      category_id: "ruby",
+      url: "http://rubyquiz.com",
+      text: "A collection of quizzes on the Ruby programming language.",
+      slug: "ruby-quiz"
+    }
+    @error_hash = {
+      title: nil,
+      category_id: nil,
+      url: nil,
+      text: 8,
+      slug: nil
+    }
+  end
+    # The below 3 tests  will test our update function with no errors.
+    it 'responds with success' do
+      put :update, id: @pin.id, pin: @pin_hash
+      expect(response).to redirect_to("/pins/#{@pin.id}")
+    end
+
+    it 'updates a pin' do
+      put :update, id: @pin.id, pin: @pin_hash
+      expect(Pin.find(@pin.id).title).to eq(@pin_hash[:title])
+    end
+
+    it 'redirects to the show view' do
+      put :update, id: @pin.id, pin: @pin_hash
+      expect(response).to redirect_to(pin_url(assigns(:pin)))
+    end
+  end
+
 end

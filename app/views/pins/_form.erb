@@ -1,0 +1,74 @@
+<% if !@errors.nil? %>
+  <div class="error">
+    <label><%= pluralize( @errors.count, "error" ) %> prohibited this pin from being saved:</label>
+    <ul>
+      <% @errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Learning Code!</h1>
+
+
+<%= form_for (@pin) do |f| %>
+
+<div class="container-fluid">
+
+	<div class="form-group">
+		<div class="row">
+	    	<label for="pin_title" class="col-xs-2 control-label">Title</label>
+
+	    	<div class="col-xs-8">
+	  			<%= f.text_field :title, class: "form-control", placeholder: "Title of the pin." %>
+	  		</div>
+	  	</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+	  		<label for="pin_category_id" class="col-xs-2 control-label">Category</label>
+
+	  		<div class="col-xs-8">
+	  			<%= f.collection_select(:category_id, Category.all, :id, :name, {prompt: "Select a category"}, {class: "form-control"}) %>
+	  		</div>
+	  	</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+	  		<label for="pin_url" class="col-xs-2 control-label">URL</label>
+
+	  		<div class="col-xs-8">
+	  			<%= f.text_field :url, class: "form-control", placeholder: "http://www.someprettyurl.com" %>
+	  		</div>
+	  	</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+	  		<label for="pin_slug" class="col-xs-2 control-label">Slug</label>
+
+	  		<div class="col-xs-8">
+	  			<%= f.text_field :slug, class: "form-control", placeholder: "Slug!" %>
+	  		</div>
+	  	</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+	  		<label for="pin_text" class="col-xs-2 control-label">Description</label>
+
+	  		<div class="col-xs-8">
+	 			<%= f.text_field :text, class: "form-control", placeholder: "Describe the pin for other users." %>
+	 		</div>
+	  	</div>
+	</div>
+
+	<div class="form-group" align="center">
+		<%= f.submit "Pin It!", class: "btn" %>
+	</div>
+</div>
+
+<% end %>

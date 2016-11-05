@@ -31,7 +31,6 @@ class PinsController < ApplicationController
 
   def edit
     @pin = Pin.find(params[:id])
-    render :edit
   end
 
   def update

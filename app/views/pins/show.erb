@@ -5,21 +5,23 @@
   </h1>
 </div>
 
-<div class="show-pin">
-  <p><%= "#{@pin.text}" %></p>
-
-  <hr/>
+<div class="panel panle-default">
+  <div class="panel-body">
+    <div class="show-pin">
+      <div class="col-xs-2"><img src="<%= @pin.image.url(:thumb) %>" class="img-thumbnail pull-right"></div>
+      <div class="col-md-4"><p><%= "#{@pin.text}" %></p></div>
+    </div>
+    <hr/>
   <p>
     <b>Visit <%= "#{@pin.title}" %> at: </b>
     <a class="url" href="<%= "#{@pin.url}" %>" target="_blank">
       <%= "#{@pin.url}" %>
     </a>
-  </p>
-  <div align="right">
-    <a href="/pins/:id/edit">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          Edit Pin
-    </a>
+    </p>
+    <div align="right">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <%= link_to "Edit Pin!", edit_pin_path(@pin), {class: "e_pin"} %>
+    </div>
   </div>
 </div>
 <br/>

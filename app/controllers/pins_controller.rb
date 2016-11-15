@@ -31,6 +31,7 @@ class PinsController < ApplicationController
 
   def edit
     @pin = Pin.find(params[:id])
+    render :edit
   end
 
   def update
@@ -48,7 +49,7 @@ class PinsController < ApplicationController
   private
 
     def pin_params
-      params.require(:pin).permit(:title, :url, :slug, :text, :category_id)
+      params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image)
     end
   
 end

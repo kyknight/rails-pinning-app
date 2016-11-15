@@ -25,17 +25,15 @@
               <h4>
                   <%= link_to "#{pin.title}", pin_by_name_path(slug: pin.slug) %>
               </h4>
-                  <%= link_to "#{pin.url}", pin.url, html_opyions = {target: "_blank", class: "url"} %>
+                  <%= link_to "#{pin.url}", pin.url, html_options = {target: "_blank", class: "url"} %>
               </div>
 
             </div>
             <hr/>
             <p class="text"><%= "#{pin.text}" %></p>
             <div align="right">
-              <a href="/pins/:id/edit">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                Edit Pin
-              </a>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <%= link_to "Edit Pin!", edit_pin_path(pin), {class: "e_pin"} %>
             </div>
           </div>
         </div>

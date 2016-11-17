@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def authenticate
         @user = User.authenticate(params[:email], params[:password])
     if @user.nil?
-        @errors = "Either email or password is incorrect"
+        @errors = "Either email or password is incorrect."
         render :login        
     else       
         session[:user_id] = @user.id

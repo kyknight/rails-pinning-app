@@ -1,6 +1,21 @@
 require 'spec_helper'
 RSpec.describe UsersController, type: :controller do
 
+let(:valid_attributes) {
+  {
+    first_name: @user.first_name,
+    last_name: @user.last_name,
+    email: @user.email,
+    password: @user.password
+  }
+}
+let(:invalid_attributes) {
+  {
+    first_name: @user.first_name,
+    password: @user.password
+  }
+}
+
   describe "GET login" do
     it "renders the login view" do
     end
@@ -26,7 +41,7 @@ RSpec.describe UsersController, type: :controller do
  
     it "populates @user if params valid" do 
      post :authenticate, @valid_user_hash
-     expect(assigns(:user)).to eq(@user)
+     expect(@user.present?).to be(true)
     end
  
     it "renders the login view if params invalid" do

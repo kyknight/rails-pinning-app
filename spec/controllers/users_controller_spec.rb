@@ -1,20 +1,20 @@
 require 'spec_helper'
 RSpec.describe UsersController, type: :controller do
 
-let(:valid_attributes) {
-  {
-    first_name: @user.first_name,
-    last_name: @user.last_name,
-    email: @user.email,
-    password: @user.password
-  }
-}
-let(:invalid_attributes) {
-  {
-    first_name: @user.first_name,
-    password: @user.password
-  }
-}
+#let(:valid_attributes) {
+  #{
+    #first_name: @user.first_name,
+    #last_name: @user.last_name,
+    #email: @user.email,
+    #password: @user.password
+  #}
+#}
+#let(:invalid_attributes) {
+  #{
+    #first_name: @user.first_name,
+    #password: @user.password
+  #}
+#}
 
   describe "GET login" do
     it "renders the login view" do
@@ -23,9 +23,9 @@ let(:invalid_attributes) {
  
   describe "POST login" do
     before(:all) do
-      @user = User.create(email: "coder@skillcrush.com", password: "secret")
-      @valid_user_hash = {email: @user.email, password: @user.password}
-      @invalid_user_hash = {email: "", password: ""}
+      @user = User.create!(first_name: "Kate", last_name: "Skillgal", email: "coder@skillcrush.com", password: "secret")
+      @valid_user_hash = {first_name: @user.first_name,last_name: @user.last_name, email: @user.email, password: @user.password}
+      @invalid_user_hash = {first_name: "", last_name: "", email: "", password: ""}
     end
  
     after(:all) do

@@ -8,4 +8,6 @@ class Pin < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :user
+
+  has_many :pinnings and has_many :users, through: :pinnings
 end

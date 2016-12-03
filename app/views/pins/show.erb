@@ -19,10 +19,31 @@
     </a>
     </p>
     <div align="right">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <%= link_to "Edit Pin!", edit_pin_path(@pin), {class: "e_pin"} %>
+        <%= link_to repin_path(@pin), class: "e_pin", method: "post" do %>
+        <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+        Repin!
+        <% end %>
+        
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <%= link_to "Edit Pins!", edit_pin_path(@pin), class: "e_pin" %>
+
     </div>
   </div>
+</div>
+
+  <h3>This pin has been repinned by:</h3>
+  <% @user.each_slice(3) do |row| %> 
+    <div class="row">
+      <% row.each do |user|  %> 
+      <div>
+      <%= "#{user.first_name} #{user.last_name}" %>
+      </div>
+      <% end %>
+    </div>
+  <% end %> 
+</div>
+<div class="row">
+  <%= render partial: "shared/repin_form", locals: {pin: @pin} %>
 </div>
 <br/>
 <a href="/">

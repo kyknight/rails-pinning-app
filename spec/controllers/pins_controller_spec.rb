@@ -1,6 +1,17 @@
 require 'spec_helper'
 RSpec.describe PinsController do
 
+  before(:each) do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+  end
+    
+  after(:each) do
+      if !@user.destroyed?
+          @user.destroy
+      end
+  end
+
 	describe "GET index" do
 
 		it 'renders the index template' do
@@ -8,10 +19,18 @@ RSpec.describe PinsController do
 			expect(response).to render_template("index")
 		end
 
-		it 'populates @pin with all pins' do
-			get :index
-			expect(assigns[:pins]).to eq(Pin.all)
-		end
+# => used to show all pins without login, but not needed anymore.
+#		it 'populates @pin with all pins' do
+#			get :index
+#			expect(assigns[:pins]).to eq(Pin.all)
+#		end
+
+# => only suppose to see pins of logged in user.
+    it "redirects to login if user is not signed in" do
+      logout(@user)
+      get :index
+      expect(response).to redirect_to(:login)
+    end
 	end
 
 	describe "GET new" do
@@ -28,6 +47,12 @@ RSpec.describe PinsController do
     it 'assigns an instance variable to a new pin' do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
+    end
+
+    it "redirects to login if user is not signed in" do
+      logout(@user)
+      get :new
+      expect(response).to redirect_to(:login)
     end
   end
   
@@ -86,33 +111,35 @@ RSpec.describe PinsController do
   
   describe "GET edit" do
     before(:each) do
-      # simple setup.
       @pin = Pin.find(5)
     end
 
     it 'responds with success' do
-      # results without errors.
       get :edit, id: @pin.id
       expect(response.success?).to be(true)
     end
 
     it 'renders the edit template' do
-      # Should redirect to the edit page/
       get :edit, id: @pin.id
       expect(response).to render_template(:edit)
     end
     
     it 'assigns an instance variable called @pin to the Pin with the appropriate id' do
-      # after the edit, the updated pin should be assinged to the pin
-      # we started with, the one with the same :id
       get :edit, id: @pin.id
       expect(assigns(:pin)).to eq(@pin)
+    end
+
+    it "redirects to login if user is not signed in" do
+      logout(@user)
+      get :new
+      expect(response).to redirect_to(:login)
     end
   end
 
   describe "POST update" do
   before(:each) do
     @pin = Pin.find(4)
+
     @pin_hash = {
       title: "Ruby Quiz",
       category_id: "ruby",
@@ -128,7 +155,7 @@ RSpec.describe PinsController do
       slug: nil
     }
   end
-    # The below 3 tests  will test our update function with no errors.
+    
     it 'responds with success' do
       put :update, id: @pin.id, pin: @pin_hash
       expect(response).to redirect_to("/pins/#{@pin.id}")

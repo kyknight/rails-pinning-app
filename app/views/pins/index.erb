@@ -2,12 +2,7 @@
   <h1>Learning to Code</h1>
   <h3>A Collection of Ruby on Rails Resources for Beginners</h3>
 </div>
-<div class="btn pull-right">
-  <%= link_to 'Sign Up', signup_path %>
-</div>
-<div class="btn pull-right">
-  <%= link_to 'Login', login_path %>
-</div>
+
 <hr/>
 
 <div class="pins">
@@ -19,11 +14,15 @@
             <div class="pin-header row">
 
                 <div class="logo-thumbnail col-xs-3" >
+                  <% if pin.image.exists? %>
+                  <%= image_tag(pin.image.url(:thumb)) %>
+                  <% else %>
 
                   <% if pin.category.name == "rails" %>
                     <%= image_tag('rails-logo-thumbnail.png') %>
                   <% elsif pin.category.name == "ruby" %>
                     <%= image_tag('ruby-logo-thumbnail.png') %>                
+                  <% end %>
                   <% end %>
                   
                 </div>  

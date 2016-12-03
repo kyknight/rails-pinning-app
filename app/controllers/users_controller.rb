@@ -11,6 +11,11 @@ class UsersController < ApplicationController
 
   end
 
+  def logout
+      session.delete(:user_id)
+      redirect_to login_path
+  end
+
   def authenticate
         @user = User.authenticate(params[:email], params[:password])
     if @user.nil?
@@ -70,11 +75,6 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def logout
-        session.delete(:user_id)
-        redirect_to login_path
   end
 
   private

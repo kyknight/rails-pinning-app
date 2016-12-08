@@ -14,8 +14,7 @@
     <hr/>
   <p>
     <b>Visit <%= "#{@pin.title}" %> at: </b>
-    <a class="url" href="<%= "#{@pin.url}" %>" target="_blank">
-      <%= "#{@pin.url}" %>
+    <%= link_to "#{@pin.url}",  "#{@pin.url}", html_options = {target: "_blank", class: "url"} %>
     </a>
     </p>
     <div align="right">
@@ -31,21 +30,22 @@
   </div>
 </div>
 
-  <h3>This pin has been repinned by:</h3>
-  <% @user.each_slice(3) do |row| %> 
-    <div class="row">
-      <% row.each do |user|  %> 
-      <div>
-      <%= "#{user.first_name} #{user.last_name}" %>
-      </div>
-      <% end %>
-    </div>
-  <% end %> 
-</div>
-<div class="row">
-  <%= render partial: "shared/repin_form", locals: {pin: @pin} %>
-</div>
 <br/>
+    <%= render partial: "shared/repin_form", locals: {pin: @pin} %>
+  <br/>
+ <hr/>
+ 
+ <h4>This pin has been repinned by:</h4>
+    <% if @users %>
+  <% @users.each do |user| %>
+    <h5><%= user.first_name %> <%= user.last_name %></h5>
+  <% end %>
+<% else %>
+  <h5> No one clicked the repin button! </h5>
+<% end %>
+<br/>
+<hr/> 
+
 <a href="/">
   <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
   Back to Home

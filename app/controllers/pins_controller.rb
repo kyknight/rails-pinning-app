@@ -9,18 +9,22 @@ class PinsController < ApplicationController
   def show
     @pin = Pin.find(params[:id])
     # populate @users with all users who have pinned this pin
-    @user = User.joins(:pinnings).where("users.id = ? or pinnings.pin_id = ?", @pin.user_id, @pin.id).distinct
+    #@users = @pin.users
+    #@users = User.joins(:pinnings).where("users.id = ? or pinnings.pin_id = ?", @pin.user_id, @pin.id).distinct
     @pins = current_user.pins
   end
     
     def show_by_name
         @pin = Pin.find_by_slug(params[:slug])
-        @user = User.joins(:pinnings).where("users.id = ? or pinnnings.pin_id = ?", @pin.user_id, @pin.id).distinct
+        @users = @pin.users
+        #@users = User.joins(:pinnings).where("users.id = ? or pinnings.pin_id = ?", @pin.user_id, @pin.id).distinct
         render :show
     end
     
     def new
         @pin = Pin.new
+        @pin.pinnings.build
+        render :new
     end
     
     def edit
@@ -29,7 +33,7 @@ class PinsController < ApplicationController
     end
     
     def create
-        @pin = Pin.create(pin_params)
+        @pin = current_user.pins.new(pin_params)
         
         if @pin.valid?
             @pin.save

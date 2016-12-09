@@ -12,18 +12,18 @@ RSpec.describe PinsController do
       end
   end
 
-	describe "GET index" do
+  describe "GET index" do
 
-		it 'renders the index template' do
-			get :index
-			expect(response).to render_template("index")
-		end
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template("index")
+    end
 
 # => used to show all pins without login, but not needed anymore.
-#		it 'populates @pin with all pins' do
-#			get :index
-#			expect(assigns[:pins]).to eq(Pin.all)
-#		end
+#   it 'populates @pin with all pins' do
+#     get :index
+#     expect(assigns[:pins]).to eq(Pin.all)
+#   end
 
 # => only suppose to see pins of logged in user.
     it "redirects to login if user is not signed in" do
@@ -31,9 +31,9 @@ RSpec.describe PinsController do
       get :index
       expect(response).to redirect_to(:login)
     end
-	end
+  end
 
-	describe "GET new" do
+  describe "GET new" do
     it 'responds with successfully' do
       get :new
       expect(response.success?).to be(true)
@@ -170,6 +170,37 @@ RSpec.describe PinsController do
       put :update, id: @pin.id, pin: @pin_hash
       expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
+  end
+
+  describe "POST repin" do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    login(@user)
+    @pin = FactoryGirl.create(:pin)
+  end
+ 
+  after(:each) do
+    pin = Pin.find_by_slug("rails-wizard")
+    if !pin.nil?
+      pin.destroy
+    end
+    logout(@user)
+  end
+
+  it 'responds with a redirect' do
+    post :repin, {:id => @pin.to_param}
+    expect(response).to be_redirect
+  end
+ 
+  it 'creates a user.pin' do
+    post :repin, {:id => @pin.to_param}
+    expect(@user.pins.present?).to be(true)
+  end
+ 
+  it 'redirects to the user show page' do
+    post :repin, {:id => @pin.to_param}
+    expect(response).to redirect_to(user_path(@user))
+  end
   end
 
 end

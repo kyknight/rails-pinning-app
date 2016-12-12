@@ -1,6 +1,6 @@
 class FollowersController < ApplicationController
   before_action :require_login, only: [:index, :new, :create, :destroy]
-  before_action :set_follower, only: [:show, :edit, :update, :destroy]
+#  before_action :set_follower, only: [:show, :edit, :update, :destroy]
 
   
   def index
@@ -57,13 +57,6 @@ class FollowersController < ApplicationController
     end
   end
 
-#  def followed
-#    Follower.where("follower_id=?", self.id).map{|f| f.user }
-#  end
-
-#  def not_followed
-#    User.all - self.followed - [self]
-#  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -22,7 +22,7 @@
     <tbody>
        <% @followers.each do |follower| %>
        <tr>
-        <td><%= follower.user.full_name%></td>
+        <td><%= follower.user.full_name %></td>
         <% @user = User.find(follower.follower_id) %>
          <td><%= @user.full_name %></td>
         <% follower.user.boards.each do |board| %>

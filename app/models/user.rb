@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
 	end
 
  def fullname
-  "#{self.first_name} #{self.last_name}"
-end
+   "#{self.first_name} #{self.last_name}"
+ end
 
  def followed
    Follower.where("follower_id=?", self.id).map{|f| f.user}

@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
 
   has_secure_password
-  has_many :pinnings, dependent: :destroy
+  has_many :pinnings, inverse_of: :user, dependent: :destroy
   has_many :pins, through: :pinnings
   has_many :boards
+  has_many :board_pinners, inverse_of: :user, dependent: :destroy
+  has_many :followers, dependent: :destroy
 
     
   validates_presence_of :first_name, :last_name, :email, :password

@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Followers</h1>
+<hr>
+<hr>
+<div class="table-responsive">
+<table class="table table-striped table-boardered ">
+  <thead>
+    <tr>
+      <th>Following</th>
+      <th>Boards</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @followed.each do |follower| %>
+      <tr>
+        <td><%= follower.fullname %></td>
+        <% follower.boards.each do |board| %>
+        <td><%= "#{board.name}/" %></td>
+        <% end %>
+        <td><%= button_to 'UnFollow', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="table-responsive">
+<table class="table table-striped table-boardered ">
+  <thead>
+    <tr>
+      <th>Followed by</th>
+      <th>Boards</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@followed_by.nil? %>
+    <% @followed_by.each do |follower| %>
+      <tr>
+        <td><%= follower.fullname %></td>
+        <% follower.boards.each do |board| %>
+        <td><%= "#{board.name}/" %></td>
+        <% end %>
+        <td><%= button_to 'UnFollow', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+<%= link_to 'New Follower', new_follower_path %>
+<br>
+<hr>

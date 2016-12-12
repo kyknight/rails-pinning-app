@@ -1,14 +1,19 @@
+<div class="header">
+  <% if !@board.nil? %>
+    <h1><%= "#{@board.name}" %></h1>
+  <% else %>
+    <h1><%= "New Board" %>
+  <% end %>
+</div>
+<hr/>
+<%= render partial: "shared/pins_list" %>
+
+<hr/>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @board.name %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @board.user %>
-</p>
-
-<%= link_to 'Edit', edit_board_path(@board) %> |
-<%= link_to 'Back', boards_path %>
+<% if @board.user == current_user %>
+  <%= link_to 'Edit', edit_board_path(@board) %> |
+  <%= link_to 'Back', boards_path %>
+<% else %>
+  <%= link_to 'Back', boards_path %>
+<% end %>
+<hr>

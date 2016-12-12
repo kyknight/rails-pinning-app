@@ -1,0 +1,14 @@
+div class="header">
+  <h1>Find People To Follow</h1>
+</div>
+
+<% @users.each do |user_to_follow| %>
+	<%= render partial: 'form', locals: { user_to_follow: user_to_follow } %>
+<% end %>
+
+<hr/>
+<hr/>
+<%= link_to 'Back', followers_path %>
+<br/>
+<hr/>
+<hr/>

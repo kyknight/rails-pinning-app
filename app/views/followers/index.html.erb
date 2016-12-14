@@ -20,17 +20,15 @@
        </thead>
 
     <tbody>
-       <% @followers.each do |follower| %>
-       <tr>
-        <td><%= follower.user.full_name %></td>
-        <% @user = User.find(follower.follower_id) %>
-         <td><%= @user.full_name %></td>
-        <% follower.user.boards.each do |board| %>
-        <td><%= board.name %></td>  
-        <% end %>
-        <td><%= button_to 'Unfollow', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+     <% @followers.each do |follower| %>
+      <tr>
+        <td><%= follower.user.full_name  %></td>
+      <% @user = User.find(follower.follower_id)   %>
+        <td><%= @user.full_name %></td>
+        <td><%= link_to 'Destroy', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-     <% end %>
+    <% end %>
+
    </tbody>
   </table>
   </div>

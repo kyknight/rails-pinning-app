@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
 		return nil
 	end
 
- def fullname
-   "#{self.first_name} #{self.last_name}"
+ def full_name
+   first_name + " " + last_name
  end
 
  def followed

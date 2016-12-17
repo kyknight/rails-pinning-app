@@ -6,7 +6,7 @@ class FollowersController < ApplicationController
   def index
     @followers = Follower.all
     @followed = current_user.followed
-#    @followed_by = current_user.user_followers
+    @followed_by = current_user.user_followers
   end
 
   
@@ -48,6 +48,7 @@ class FollowersController < ApplicationController
 
   
   def destroy
+    @follower = Follower.find(params[:id])
     @follower.destroy
     respond_to do |format|
       format.html { redirect_to followers_url, notice: 'Follower was successfully destroyed.' }

@@ -27,13 +27,11 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
+    @user = current_user
     @pins = current_user.pins
   end
 
-  # GET /users/new
   def new
     @user = User.new
   end

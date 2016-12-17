@@ -1,15 +1,15 @@
 class User < ActiveRecord::Base
 
   has_secure_password
+  validates_presence_of :first_name, :last_name, :email, :password
+  validates_uniqueness_of :email
+
+
   has_many :pinnings, inverse_of: :user, dependent: :destroy
   has_many :pins, through: :pinnings
   has_many :boards
   has_many :board_pinners, inverse_of: :user, dependent: :destroy
   has_many :followers, dependent: :destroy
-
-    
-  validates_presence_of :first_name, :last_name, :email, :password
-  validates_uniqueness_of :email
 
 	def self.authenticate(email, password)
 		@user = User.find_by_email(email)
@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 	end
 
  def full_name
-   first_name + " " + last_name
+   "#{self.first_name} #{self.last_name}"
  end
 
  def followed

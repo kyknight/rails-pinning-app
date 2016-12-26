@@ -65,6 +65,6 @@ class FollowersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def follower_params
-      params.require(:follower).permit(:user, :follower_id)
+      params.require(:follower).permit(:user_id, :follower_id)
     end
 end

@@ -20,8 +20,8 @@
       <% @followers.each do |follower| %>
       <tr>
         <td><%= follower.user.full_name if follower.user %></td>
-        <% follower.boards.each do |board| %>
-        <td><%= "#{board.name}/" %></td>
+        <% follower.user.boards.each do |board| %>
+        <td><%= "#{user.board.name}/" %></td>
         <% end %>
 
         <td><%= button_to 'UnFollow', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -47,8 +47,8 @@
     <% @followed_by.each do |follower| %>
       <tr>
         <td><%= follower.user.full_name if follower.user %></td>
-        <% follower.boards.each do |board| %>
-        <td><%= "#{board.name}/" %></td>
+        <% follower.user.boards.each do |board| %>
+        <td><%= "#{user.board.name}/" %></td>
         <% end %>
         <td><%= button_to 'UnFollow', follower, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

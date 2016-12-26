@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
 
   has_many :pinnings, inverse_of: :user, dependent: :destroy
-  has_many :pins, through: :pinnings
+  has_many :pins, through: :pinnings, dependent: :destroy
   has_many :boards
   has_many :board_pinners, inverse_of: :user, dependent: :destroy
   has_many :followers, dependent: :destroy

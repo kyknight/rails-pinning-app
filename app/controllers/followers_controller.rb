@@ -6,7 +6,6 @@ class FollowersController < ApplicationController
   def index
     @followers = Follower.all
     @followed = current_user.followed
-    @followed_by = current_user.user_followers
   end
 
   
